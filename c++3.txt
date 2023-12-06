@@ -1,0 +1,38 @@
+#include <iostream>
+#include <cmath>
+#include <sstream>
+
+// Функція для конвертації радіанів в градуси
+double RadToDeg(double R) {
+    const double pi = 3.14159265358979323846;
+    return R * (180.0 / pi);
+}
+
+int main() {
+    // Перевести п'ять заданих кутів з радіан в градуси
+    for (int i = 1; i <= 5; ++i) {
+        std::string input;
+        double angleInRadians;
+
+        std::cout << "Введіть кут " << i << " в радіанах (0 <= кут < 2π): ";
+        std::cin >> input;
+
+        // Перевірка, чи введено "pi" і заміна на відповідне значення
+        if (input.find("pi") != std::string::npos) {
+            input.replace(input.find("pi"), 2, "3.14159265358979323846");
+        }
+
+        std::istringstream(input) >> angleInRadians;
+
+        if (angleInRadians >= 0 && angleInRadians < (2 * M_PI)) {
+            double angleInDegrees = RadToDeg(angleInRadians);
+            std::cout << "Кут в градусах: " << angleInDegrees << std::endl;
+        } else {
+            std::cout << "Некоректний ввід для кута. Введіть значення в межах [0, 2π)." << std::endl;
+            // Виправлення: Повторний ввід для некоректних значень
+            --i;
+        }
+    }
+
+    return 0;
+}
